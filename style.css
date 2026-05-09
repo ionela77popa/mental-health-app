@@ -164,9 +164,9 @@ div[data-testid='stButton'] {
 	position: relative;
 }
 
-/* efect sketch complet */
-.result-box::before,
-[data-testid='stVerticalBlock']::before {
+/* efect sketch doar pentru rezultat */
+.result-box::before {
+
 	content: '';
 
 	position: absolute;
@@ -319,20 +319,38 @@ table th {
 		margin-bottom: 20px !important;
 	}
 
-	/* buton */
-	.stButton > button {
+/* container buton */
+div[data-testid="stButton"] {
 
-		font-size: 26px !important;
+	display: flex !important;
 
-		padding: 12px 32px !important;
+	justify-content: center !important;
 
-		width: 100% !important;
-		max-width: 320px !important;
+	align-items: center !important;
 
-		margin: 0 auto !important;
+	width: 100% !important;
+}
 
-		display: block !important;
-	}
+
+/* buton */
+div[data-testid="stButton"] > button {
+
+	font-size: 26px !important;
+
+	padding: 12px 32px !important;
+
+	width: 100% !important;
+
+	max-width: 320px !important;
+
+	margin: 0 auto !important;
+
+	display: flex !important;
+
+	justify-content: center !important;
+
+	align-items: center !important;
+}
 
 	/* rezultat */
 	.result-box {
