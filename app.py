@@ -1,11 +1,21 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import pandas as pd
 import numpy as np
+from pathlib import Path
 
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
+
+
+BASE_DIR = Path(__file__).resolve().parent
+ASSETS_DIR = BASE_DIR / "assets"
+CSS_FILE = ASSETS_DIR / "css" / "style.css"
+DATA_FILE = BASE_DIR / "Teen_Mental_Health_Dataset.csv"
+DEPRESSION_IMAGE = ASSETS_DIR / "img" / "1.jpg"
+HEALTHY_IMAGE = ASSETS_DIR / "img" / "0.jpg"
 
 
 # ==================================
@@ -21,7 +31,7 @@ st.set_page_config(
 # CSS
 # ==================================
 
-with open("style.css") as f:
+with open(CSS_FILE, encoding="utf-8") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # ==================================
@@ -36,7 +46,7 @@ st.title("KNN Depression Predictor")
 
 @st.cache_data
 def load_data():
-    return pd.read_csv("Teen_Mental_Health_Dataset.csv")
+    return pd.read_csv(DATA_FILE)
 
 data = load_data()
 
@@ -168,7 +178,7 @@ addiction = st.slider(
 # BUTON PREDICT
 # ==================================
 
-if st.button("PREDICT"):
+if st.button("PREDICT", key="predict_button"):
 
     user_data = np.array([[
         social_media,
@@ -185,16 +195,28 @@ if st.button("PREDICT"):
 
     prediction = model.predict(user_scaled)[0]
 
-    if prediction == 1:
+    class TypesStatus:
+        DEPRESION = 1
+        SANATOS = 0
+
+    class ImagesForTypes:
+        DEPRESION = str(DEPRESSION_IMAGE)
+        SANATOS = str(HEALTHY_IMAGE)
+    
+    if prediction == TypesStatus.DEPRESION:
 
         st.markdown(
             """
             <div class="result-box">
             Depresie prezentă
             </div>
+            
             """,
             unsafe_allow_html=True
         )
+        
+        st.image(ImagesForTypes.DEPRESION, caption=None, width="content", use_column_width=None, clamp=False, channels="RGB", output_format="auto", use_container_width=None, link="")
+
 
     else:
 
@@ -206,3 +228,15 @@ if st.button("PREDICT"):
             """,
             unsafe_allow_html=True
         )
+        st.image(ImagesForTypes.SANATOS, caption=None, width="content", use_column_width=None, clamp=False, channels="RGB", output_format="auto", use_container_width=None, link="")
+
+    components.html(
+        """
+        <script>
+        const main = window.parent.document.querySelector('[data-testid="stMain"]');
+        const scrollTarget = main ?? window.parent;
+        scrollTarget.scrollBy({ top: 1500, behavior: "smooth" });
+        </script>
+        """,
+        height=0,
+    )

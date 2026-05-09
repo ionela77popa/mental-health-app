@@ -121,6 +121,20 @@ div[data-testid='stButton'] {
 	width: 100%;
 }
 
+.element-container.st-key-predict_button {
+	display: flex;
+	justify-content: center;
+}
+
+.st-key-predict_button {
+	width: auto !important;
+}
+
+.stButton {
+	display: flex !important;
+	justify-content: center !important;
+}
+
 /* buton predict */
 .stButton > button {
 	width: auto;
@@ -151,7 +165,8 @@ div[data-testid='stButton'] {
 	border-radius: 24px;
 
 	padding: 30px;
-	margin-top: 25px;
+	margin-top: 1.75em;
+	margin-bottom: 1em;
 
 	background: white;
 
@@ -351,7 +366,7 @@ table th {
 	.result-box {
 		font-size: 30px !important;
 		padding: 10px !important;
-        padding-bottom: 10px !important;
+		padding-bottom: 10px !important;
 		margin-top: 25px !important;
 	}
 }
