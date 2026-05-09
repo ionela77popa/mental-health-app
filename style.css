@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+html,
+body,
+[class*='css'] {
+	font-family: 'Patrick Hand', cursive;
+	background-color: #f6f6f6;
+	color: #2437d6;
+
+	font-size: 22px !important;
+}
+
+/* fundal principal */
+.stApp {
+	background-color: #f6f6f6;
+}
+
+/* container principal */
+.block-container {
+	max-width: 1100px;
+	padding-top: 5rem;
+	padding-bottom: 2rem;
+}
+
+/* titluri */
+h1,
+h2,
+h3 {
+	color: #2437d6 !important;
+	font-weight: normal !important;
+	letter-spacing: 1px;
+}
+
+[data-testid='stVerticalBlock'] {
+	background: white;
+	border: 3px solid #2437d6;
+	border-radius: 28px;
+
+	padding: 25px;
+
+	margin-top: 22px;
+	margin-bottom: 22px;
+
+	box-shadow: none;
+
+	overflow: hiddenș;
+}
+
+/* liniile */
+hr {
+	border: none;
+	border-top: 3px solid #2437d6;
+	opacity: 1;
+}
+
+/* text normal */
+p,
+label,
+span,
+div {
+	color: #2437d6 !important;
+}
+
+/* input number */
+[data-baseweb='input'] {
+	border: 3px solid #2437d6 !important;
+	border-radius: 16px !important;
+	background: white !important;
+}
+
+/* slider track */
+.stSlider [data-baseweb='slider'] > div > div {
+	background-color: #2437d6 !important;
+}
+
+/* slider cerc */
+.stSlider [role='slider'] {
+	background-color: white !important;
+
+	border: 3px solid #2437d6 !important;
+
+	width: 18px !important;
+	height: 18px !important;
+
+	border-radius: 50% !important;
+
+	box-shadow: none !important;
+
+	outline: none !important;
+}
+
+/* track general */
+.stSlider [data-baseweb='slider'] > div > div {
+	background: transparent !important;
+}
+
+/* hasura doar pe linia activa */
+.stSlider [data-baseweb='slider'] > div > div > div:first-child {
+	background: repeating-linear-gradient(
+		45deg,
+		#2437d6,
+		#2437d6 2px,
+		white 2px,
+		white 6px
+	) !important;
+}
+
+/* valoare slider fara hasura */
+.stSlider input {
+	background: white !important;
+}
+
+/* container valoare */
+.stSlider [data-baseweb='input'] {
+	background: white !important;
+}
+
+div[data-testid='stButton'] {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+
+	margin-left: 280px;
+}
+
+/* buton predict */
+.stButton > button {
+	width: auto;
+
+	background: white !important;
+	color: #2437d6 !important;
+
+	border: 3px solid #2437d6 !important;
+	border-radius: 24px !important;
+
+	font-family: 'Patrick Hand', cursive !important;
+	font-size: 32px !important;
+
+	padding: 14px 40px !important;
+
+	transition: 0.2s;
+}
+
+/* hover buton */
+.stButton > button:hover {
+	background-color: #eef1ff !important;
+	color: #2437d6 !important;
+}
+
+/* rezultat predictie */
+.result-box {
+	border: 3px solid #2437d6;
+	border-radius: 24px;
+
+	padding: 30px;
+	margin-top: 25px;
+
+	background: white;
+
+	text-align: center;
+
+	font-size: 44px;
+	color: #2437d6;
+
+	position: relative;
+}
+
+/* efect sketch complet */
+.result-box::before,
+[data-testid='stVerticalBlock']::before {
+	content: '';
+
+	position: absolute;
+
+	top: 6px;
+	bottom: 6px;
+	left: 6px;
+	right: 6px;
+
+	border: 2px dashed rgba(36, 55, 214, 0.28);
+
+	border-radius: 22px;
+
+	pointer-events: none;
+}
+
+/* selectbox */
+[data-baseweb='select'] {
+	border-radius: 16px !important;
+}
+
+/* sidebar */
+section[data-testid='stSidebar'] {
+	background-color: white;
+	border-right: 3px solid #2437d6;
+}
+
+/* tabele */
+table {
+	border-collapse: collapse !important;
+}
+
+table td,
+table th {
+	border: 2px solid #2437d6 !important;
+	color: #2437d6 !important;
+}
+
+/* markdown */
+.stMarkdown {
+	color: #2437d6;
+}
+
+/* eliminate shadows */
+* {
+	box-shadow: none !important;
+}
+
+/* elimina markerul rosu */
+.stSlider *:focus {
+	outline: none !important;
+}
+
+.stSlider * {
+	accent-color: #2437d6 !important;
+}
+
+/* elimina highlight hover */
+.stSlider [role='slider']:hover,
+.stSlider [role='slider']:focus,
+.stSlider [role='slider']:active {
+	box-shadow: none !important;
+	outline: none !important;
+}
+
+/* elimina pseudo-elemente */
+.stSlider [data-baseweb='slider']::before,
+.stSlider [data-baseweb='slider']::after {
+	display: none !important;
+}
+
+/* elimina elementele decorative laterale */
+.stSlider [data-baseweb='slider'] > div > div {
+	overflow: hidden !important;
+}
+
+/* thumb real */
+.stSlider [role='slider'] {
+	background: white !important;
+
+	border: 3px solid #2437d6 !important;
+
+	border-radius: 50% !important;
+
+	width: 18px !important;
+	height: 18px !important;
+
+	box-shadow: none !important;
+}
+
+/* elimina culoarea rosie a capetelor */
+.stSlider svg * {
+	fill: white !important;
+	stroke: #2437d6 !important;
+}
+
+/* partea neactiva */
+.stSlider [data-baseweb='slider'] > div > div > div:last-child {
+	background: white !important;
+}
+
+/* partea activa */
+.stSlider [data-baseweb='slider'] > div > div > div:first-child {
+	background: repeating-linear-gradient(
+		45deg,
+		#2437d6,
+		#2437d6 2px,
+		white 2px,
+		white 6px
+	) !important;
+}
