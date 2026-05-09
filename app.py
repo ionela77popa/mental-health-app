@@ -3,7 +3,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 from pathlib import Path
 
-from prediction import FEATURES, get_engine, predict_sync
+from prediction import FEATURES, get_engine
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -144,7 +144,7 @@ addiction = st.slider(
 
 if st.button("PREDICT", key="predict_button"):
 
-    prediction = predict_sync(
+    prediction = engine.predict(
         [
             social_media,
             sleep_hours,
