@@ -27,7 +27,7 @@ h1,
 h2,
 h3 {
 	color: #2437d6 !important;
-	font-weight: normal !important;
+	font-weight: 700 !important;
 	letter-spacing: 1px;
 }
 
@@ -320,10 +320,12 @@ table th {
 	}
 
 	h1 {
-		font-size: 52px !important;
+		font-size: 64px !important;
+		font-weight: 700 !important;
 		line-height: 1.05 !important;
 		word-break: break-word;
 	}
+}
 
 	h2 {
 		font-size: 34px !important;
