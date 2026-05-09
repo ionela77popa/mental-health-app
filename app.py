@@ -14,8 +14,8 @@ BASE_DIR = Path(__file__).resolve().parent
 ASSETS_DIR = BASE_DIR / "assets"
 CSS_FILE = ASSETS_DIR / "css" / "style.css"
 DATA_FILE = BASE_DIR / "Teen_Mental_Health_Dataset.csv"
-DEPRESSION_IMAGE = ASSETS_DIR / "img" / "1.jpg"
-HEALTHY_IMAGE = ASSETS_DIR / "img" / "0.jpg"
+DEPRESSION_IMAGE = ASSETS_DIR / "img" / "1.png"
+HEALTHY_IMAGE = ASSETS_DIR / "img" / "0.png"
 
 
 # ==================================
@@ -215,7 +215,7 @@ if st.button("PREDICT", key="predict_button"):
             unsafe_allow_html=True
         )
         
-        st.image(ImagesForTypes.DEPRESION, caption=None, width="content", use_column_width=None, clamp=False, channels="RGB", output_format="auto", use_container_width=None, link="")
+        st.image(ImagesForTypes.DEPRESION, width=250)
 
 
     else:
@@ -228,7 +228,7 @@ if st.button("PREDICT", key="predict_button"):
             """,
             unsafe_allow_html=True
         )
-        st.image(ImagesForTypes.SANATOS, caption=None, width="content", use_column_width=None, clamp=False, channels="RGB", output_format="auto", use_container_width=None, link="")
+        st.image(ImagesForTypes.SANATOS, width=250)
 
     components.html(
         """
