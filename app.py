@@ -203,7 +203,7 @@ if st.button("PREDICT", key="predict_button"):
         <script>
         const main = window.parent.document.querySelector('[data-testid="stMain"]');
         const scrollTarget = main ?? window.parent;
-        scrollTarget.scrollBy({ top: 1500, behavior: "smooth" });
+        scrollTarget.scrollBy({ top: 500, behavior: "smooth" });
         </script>
         """,
         height=0,
