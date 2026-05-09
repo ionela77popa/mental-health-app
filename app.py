@@ -51,25 +51,25 @@ accuracy = engine.holdout_accuracy
 # BENCHMARK EXPANDER
 # ==================================
 
-with st.expander(
-    f"Model activ: **{engine.best_model_name}** — Acuratețe: **{accuracy*100:.2f}%**",
-    expanded=False,
-):
-    report = engine.report
-    if report:
-        rows = []
-        for m in report.ranked:
-            rows.append({
-                "Model": ("★ " if m.name == report.best.name else "   ") + m.name,
-                "CV Accuracy": f"{m.accuracy_cv:.4f} ±{m.accuracy_cv_std:.4f}",
-                "HO Accuracy": f"{m.accuracy_holdout:.4f}",
-                "F1": f"{m.f1:.4f}",
-                "ROC-AUC": f"{m.roc_auc:.4f}",
-                "Fit (s)": f"{m.fit_time_s:.3f}",
-                "Pred (ms)": f"{m.predict_time_ms:.3f}",
-            })
-        import pandas as _pd
-        st.dataframe(_pd.DataFrame(rows), use_container_width=True, hide_index=True)
+# with st.expander(
+#     f"Model activ: **{engine.best_model_name}** — Acuratețe: **{accuracy*100:.2f}%**",
+#     expanded=False,
+# ):
+#     report = engine.report
+#     if report:
+#         rows = []
+#         for m in report.ranked:
+#             rows.append({
+#                 "Model": ("★ " if m.name == report.best.name else "   ") + m.name,
+#                 "CV Accuracy": f"{m.accuracy_cv:.4f} ±{m.accuracy_cv_std:.4f}",
+#                 "HO Accuracy": f"{m.accuracy_holdout:.4f}",
+#                 "F1": f"{m.f1:.4f}",
+#                 "ROC-AUC": f"{m.roc_auc:.4f}",
+#                 "Fit (s)": f"{m.fit_time_s:.3f}",
+#                 "Pred (ms)": f"{m.predict_time_ms:.3f}",
+#             })
+#         import pandas as _pd
+#         st.dataframe(_pd.DataFrame(rows), use_container_width=True, hide_index=True)
 
 # ==================================
 # INPUTURI
