@@ -351,6 +351,7 @@ table th {
 	.result-box {
 		font-size: 30px !important;
 		padding: 10px !important;
+        padding-bottom: 10px !important;
 		margin-top: 25px !important;
 	}
 }
