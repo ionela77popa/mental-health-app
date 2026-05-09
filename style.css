@@ -18,7 +18,7 @@ body,
 /* container principal */
 .block-container {
 	max-width: 1100px;
-	padding-top: 5rem;
+	padding-top: 7rem;
 	padding-bottom: 2rem;
 }
 
@@ -356,6 +356,7 @@ div[data-testid="stButton"] > button {
 	.result-box {
 		font-size: 30px !important;
 		padding: 20px !important;
+        margin-top: 5px !important;
 	}
 
 }
