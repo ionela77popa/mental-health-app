@@ -63,6 +63,10 @@ TEST_SIZE: float = 0.30     # HoldOut 0.3 — identic MATLAB
 RANDOM_STATE: int = 42
 CV_FOLDS: int = 5           # StratifiedKFold → echivalent cvpartition('KFold', 5)
 
+# Prag coborât pentru clasa minoritară (depresie ~2.6% din date)
+# Default sklearn = 0.5; coborâm la 0.35 pentru a nu rata cazuri pozitive
+DEPRESSION_THRESHOLD: float = 0.35
+
 # ThreadPoolExecutor global — reutilizat de toate predicțiile async
 _EXECUTOR = ThreadPoolExecutor(max_workers=4, thread_name_prefix="pred_worker")
 
@@ -85,20 +89,24 @@ def _build_candidates() -> dict[str, Any]:
             n_neighbors=7, metric="minkowski", weights="distance"
         ),
         "RandomForest": RandomForestClassifier(
-            n_estimators=300, max_depth=None, random_state=RANDOM_STATE, n_jobs=-1
+            n_estimators=300, max_depth=None, random_state=RANDOM_STATE,
+            class_weight="balanced", n_jobs=-1
         ),
         "ExtraTrees": ExtraTreesClassifier(
-            n_estimators=300, random_state=RANDOM_STATE, n_jobs=-1
+            n_estimators=300, random_state=RANDOM_STATE,
+            class_weight="balanced", n_jobs=-1
         ),
         "GradientBoosting": GradientBoostingClassifier(
-            n_estimators=200, learning_rate=0.05, max_depth=4, random_state=RANDOM_STATE
+            n_estimators=200, learning_rate=0.05, max_depth=4,
+            subsample=0.8, random_state=RANDOM_STATE
         ),
         "SVC-RBF": SVC(
             kernel="rbf", C=1.0, gamma="scale",
-            probability=True, random_state=RANDOM_STATE
+            class_weight="balanced", probability=True, random_state=RANDOM_STATE
         ),
         "LogisticRegression": LogisticRegression(
-            max_iter=1000, solver="lbfgs", random_state=RANDOM_STATE
+            max_iter=1000, solver="lbfgs",
+            class_weight="balanced", random_state=RANDOM_STATE
         ),
     }
 
@@ -122,7 +130,7 @@ class ModelMetrics:
     def __str__(self) -> str:
         return (
             f"{self.name:<30} "
-            f"CV={self.accuracy_cv:.4f}±{self.accuracy_cv_std:.4f}  "
+            f"CV-F1={self.accuracy_cv:.4f}±{self.accuracy_cv_std:.4f}  "
             f"HO={self.accuracy_holdout:.4f}  "
             f"F1={self.f1:.4f}  "
             f"AUC={self.roc_auc:.4f}  "
@@ -147,7 +155,7 @@ class BenchmarkReport:
     def summary(self) -> str:
         header = (
             f"\n{'─'*96}\n"
-            f"{'Model':<30} {'CV-Acc':>12} {'HO-Acc':>8} "
+            f"{'Model':<30} {'CV-F1':>12} {'HO-Acc':>8} "
             f"{'F1':>8} {'AUC':>8} {'Fit(s)':>8} {'Pred(ms)':>10}\n"
             f"{'─'*96}"
         )
@@ -165,12 +173,12 @@ class BenchmarkReport:
         best_line = (
             f"\n{'─'*96}\n"
             f"★  Cel mai bun model: {self.best.name}\n"
-            f"   CV Accuracy : {self.best.accuracy_cv:.4f} ± {self.best.accuracy_cv_std:.4f}\n"
+            f"   CV F1-Score  : {self.best.accuracy_cv:.4f} ± {self.best.accuracy_cv_std:.4f}\n"
             f"   HO Accuracy : {self.best.accuracy_holdout:.4f}  "
-            f"({self.best.accuracy_holdout*100:.2f}%)  "
-            f"← echivalent MATLAB {self.best.accuracy_holdout*100:.2f}%\n"
+            f"({self.best.accuracy_holdout*100:.2f}%)\n"
             f"   F1 Score    : {self.best.f1:.4f}\n"
             f"   ROC-AUC     : {self.best.roc_auc:.4f}\n"
+            f"   Prag decizie: {DEPRESSION_THRESHOLD} (coborât pentru clasa minoritară)\n"
             f"{'─'*96}"
         )
         return header + "\n" + rows + best_line
@@ -250,6 +258,11 @@ class PredictionEngine:
         self._assert_ready()
         arr = np.array(input_values, dtype=float).reshape(1, -1)
         scaled = self._scaler.transform(arr)
+        # Folosim predict_proba cu prag coborât pentru clasa minoritară (~2.6%)
+        # Pragul implicit 0.5 ratează aproape toate cazurile pozitive
+        if hasattr(self._model, "predict_proba"):
+            prob = float(self._model.predict_proba(scaled)[0][1])
+            return int(prob >= DEPRESSION_THRESHOLD)
         return int(self._model.predict(scaled)[0])
 
     async def predict_async(self, input_values: list[float] | np.ndarray) -> int:
@@ -364,9 +377,9 @@ class PredictionEngine:
             cv_result = cross_validate(
                 clf, X_train, y_train,
                 cv=cv_strategy,
-                scoring="accuracy",
+                scoring="f1",       # f1 penalizează corect clasa minoritară
                 return_train_score=False,
-                n_jobs=1,           # n_jobs=-1 e deja pe estimator unde e util
+                n_jobs=1,
             )
             cv_time = time.perf_counter() - t0
 
