@@ -1,14 +1,9 @@
 import base64
 import streamlit as st
 import streamlit.components.v1 as components
-import pandas as pd
-import numpy as np
 from pathlib import Path
 
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score
+from prediction import FEATURES, get_engine, predict_sync
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -42,71 +37,39 @@ with open(CSS_FILE, encoding="utf-8") as f:
 st.title("KNN Depression Predictor")
 
 # ==================================
-# INCARCARE DATE
+# INCARCARE MODEL
 # ==================================
 
-@st.cache_data
-def load_data():
-    return pd.read_csv(DATA_FILE)
+@st.cache_resource(show_spinner="Antrenare model...")
+def load_engine():
+    return get_engine(DATA_FILE)
 
-data = load_data()
-
-# ==================================
-# PREDICTORI
-# ==================================
-
-features = [
-    "daily_social_media_hours",
-    "sleep_hours",
-    "screen_time_before_sleep",
-    "academic_performance",
-    "physical_activity",
-    "stress_level",
-    "anxiety_level",
-    "addiction_level"
-]
-
-X = data[features]
-Y = data["depression_label"]
+engine = load_engine()
+accuracy = engine.holdout_accuracy
 
 # ==================================
-# NORMALIZARE
+# BENCHMARK EXPANDER
 # ==================================
 
-scaler = StandardScaler()
-
-X_scaled = scaler.fit_transform(X)
-
-# ==================================
-# IMPARTIRE DATE
-# ==================================
-
-XTrain, XTest, YTrain, YTest = train_test_split(
-    X_scaled,
-    Y,
-    test_size=0.3,
-    random_state=42
-)
-
-# ==================================
-# MODEL KNN
-# ==================================
-
-k = 5
-
-model = KNeighborsClassifier(
-    n_neighbors=k
-)
-
-model.fit(XTrain, YTrain)
-
-# ==================================
-# ACURATETE
-# ==================================
-
-YPred = model.predict(XTest)
-
-accuracy = accuracy_score(YTest, YPred)
+with st.expander(
+    f"Model activ: **{engine.best_model_name}** — Acuratețe: **{accuracy*100:.2f}%**",
+    expanded=False,
+):
+    report = engine.report
+    if report:
+        rows = []
+        for m in report.ranked:
+            rows.append({
+                "Model": ("★ " if m.name == report.best.name else "   ") + m.name,
+                "CV Accuracy": f"{m.accuracy_cv:.4f} ±{m.accuracy_cv_std:.4f}",
+                "HO Accuracy": f"{m.accuracy_holdout:.4f}",
+                "F1": f"{m.f1:.4f}",
+                "ROC-AUC": f"{m.roc_auc:.4f}",
+                "Fit (s)": f"{m.fit_time_s:.3f}",
+                "Pred (ms)": f"{m.predict_time_ms:.3f}",
+            })
+        import pandas as _pd
+        st.dataframe(_pd.DataFrame(rows), use_container_width=True, hide_index=True)
 
 # ==================================
 # INPUTURI
@@ -181,20 +144,18 @@ addiction = st.slider(
 
 if st.button("PREDICT", key="predict_button"):
 
-    user_data = np.array([[
-        social_media,
-        sleep_hours,
-        screen_before_sleep,
-        academic,
-        physical,
-        stress,
-        anxiety,
-        addiction
-    ]])
-
-    user_scaled = scaler.transform(user_data)
-
-    prediction = model.predict(user_scaled)[0]
+    prediction = predict_sync(
+        [
+            social_media,
+            sleep_hours,
+            screen_before_sleep,
+            academic,
+            physical,
+            stress,
+            anxiety,
+            addiction,
+        ]
+    )
 
     class TypesStatus:
         DEPRESION = 1
