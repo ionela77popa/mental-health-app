@@ -3,7 +3,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 from pathlib import Path
 
-from prediction import FEATURES, get_engine
+from prediction import FEATURES, PredictionEngine
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -42,7 +42,9 @@ st.title("KNN Depression Predictor")
 
 @st.cache_resource(show_spinner="Antrenare model...")
 def load_engine():
-    return get_engine(DATA_FILE)
+    e = PredictionEngine(DATA_FILE)
+    e.initialize()
+    return e
 
 engine = load_engine()
 accuracy = engine.holdout_accuracy
