@@ -119,7 +119,7 @@ div[data-testid='stButton'] {
 	display: flex;
 	justify-content: center;
 	width: 100%;
-    
+
 }
 
 /* buton predict */
@@ -277,4 +277,67 @@ table th {
 		white 2px,
 		white 6px
 	) !important;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+
+	.block-container {
+		padding-top: 1rem !important;
+		padding-left: 0.7rem !important;
+		padding-right: 0.7rem !important;
+	}
+
+	[data-testid='stVerticalBlock'] {
+		padding: 18px !important;
+		border-radius: 22px !important;
+	}
+
+	h1 {
+		font-size: 52px !important;
+		line-height: 1.05 !important;
+		word-break: break-word;
+	}
+
+	h2 {
+		font-size: 34px !important;
+	}
+
+	h3,
+	p,
+	label,
+	span,
+	div {
+		font-size: 22px !important;
+	}
+
+	/* slider */
+	.stSlider {
+		margin-top: 10px !important;
+		margin-bottom: 20px !important;
+	}
+
+	/* buton */
+	.stButton > button {
+
+		font-size: 26px !important;
+
+		padding: 12px 32px !important;
+
+		width: 100% !important;
+		max-width: 320px !important;
+
+		margin: 0 auto !important;
+
+		display: block !important;
+	}
+
+	/* rezultat */
+	.result-box {
+		font-size: 30px !important;
+		padding: 20px !important;
+	}
+
 }
