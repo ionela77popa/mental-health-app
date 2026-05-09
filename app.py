@@ -1,3 +1,4 @@
+import base64
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
@@ -202,7 +203,16 @@ if st.button("PREDICT", key="predict_button"):
     class ImagesForTypes:
         DEPRESION = str(DEPRESSION_IMAGE)
         SANATOS = str(HEALTHY_IMAGE)
-    
+
+    def img_html(path: str) -> str:
+        with open(path, "rb") as f:
+            b64 = base64.b64encode(f.read()).decode()
+        return (
+            f'<div style="display:flex;justify-content:center;margin-top:1em">'
+            f'<img src="data:image/png;base64,{b64}" width="250"/>'
+            f'</div>'
+        )
+
     if prediction == TypesStatus.DEPRESION:
 
         st.markdown(
@@ -210,13 +220,10 @@ if st.button("PREDICT", key="predict_button"):
             <div class="result-box">
             Depresie prezentă
             </div>
-            
             """,
             unsafe_allow_html=True
         )
-        
-        st.image(ImagesForTypes.DEPRESION, width=250)
-
+        st.markdown(img_html(ImagesForTypes.DEPRESION), unsafe_allow_html=True)
 
     else:
 
@@ -228,7 +235,7 @@ if st.button("PREDICT", key="predict_button"):
             """,
             unsafe_allow_html=True
         )
-        st.image(ImagesForTypes.SANATOS, width=250)
+        st.markdown(img_html(ImagesForTypes.SANATOS), unsafe_allow_html=True)
 
     components.html(
         """

@@ -135,6 +135,19 @@ div[data-testid='stButton'] {
 	justify-content: center !important;
 }
 
+div[data-testid='stImage'],
+.stImage {
+	display: flex !important;
+	justify-content: center !important;
+	width: 100% !important;
+}
+
+div[data-testid='stImage'] img,
+.stImage img {
+	display: block !important;
+	margin: 0 auto !important;
+}
+
 /* buton predict */
 .stButton > button {
 	width: auto;
