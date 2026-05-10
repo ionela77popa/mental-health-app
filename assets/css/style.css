@@ -71,7 +71,7 @@ h2 * {
 .profile-heading {
 	display: flex;
 	align-items: flex-end;
-	gap: 14px;
+	gap: 6px;
 	margin-top: 0;
 	margin-bottom: 1.6rem;
 }
@@ -84,7 +84,7 @@ h2 * {
 	display: block;
 	width: 78px;
 	height: auto;
-	transform: translateY(-0.2rem);
+	transform: translate(-0.2rem, -0.45rem);
 }
 
 
@@ -418,7 +418,7 @@ table th {
 	}
 
 	.profile-heading {
-		gap: 8px;
+		gap: 4px;
 		margin-top: 0.2rem;
 		margin-bottom: 1.5rem;
 	}
@@ -430,7 +430,7 @@ table th {
 
 	.profile-heading-img {
 		width: 58px;
-		transform: translateY(-0.15rem);
+		transform: translate(-0.25rem, -0.45rem);
 	}
 
 	h3,
