@@ -12,6 +12,13 @@ CSS_FILE = ASSETS_DIR / "css" / "style.css"
 DATA_FILE = BASE_DIR / "Teen_Mental_Health_Dataset.csv"
 DEPRESSION_IMAGE = ASSETS_DIR / "img" / "1.png"
 HEALTHY_IMAGE = ASSETS_DIR / "img" / "0.png"
+PROFILE_IMAGE = ASSETS_DIR / "img" / "dog.png"
+
+
+def image_data_uri(path: Path) -> str:
+    with open(path, "rb") as f:
+        b64 = base64.b64encode(f.read()).decode()
+    return f"data:image/png;base64,{b64}"
 
 
 # ==================================
@@ -86,7 +93,15 @@ accuracy = engine.holdout_accuracy
 # INPUTURI
 # ==================================
 
-st.markdown("## Introdu datele profilului:")
+st.markdown(
+    f"""
+    <div class="profile-heading">
+        <h2>Introdu datele profilului:</h2>
+        <img class="profile-heading-img" src="{image_data_uri(PROFILE_IMAGE)}" alt="">
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 social_media = st.slider(
     "Număr ore social media / zi",
@@ -177,11 +192,9 @@ if st.button("PREDICT", key="predict_button"):
         SANATOS = str(HEALTHY_IMAGE)
 
     def img_html(path: str) -> str:
-        with open(path, "rb") as f:
-            b64 = base64.b64encode(f.read()).decode()
         return (
             f'<div style="display:flex;justify-content:center;margin-top:0.5rem">'
-            f'<img src="data:image/png;base64,{b64}" width="250"/>'
+            f'<img src="{image_data_uri(Path(path))}" width="250"/>'
             f'</div>'
         )
 

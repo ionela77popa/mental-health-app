@@ -68,6 +68,25 @@ h2 * {
 	text-shadow: 0.4px 0 #2437d6;
 }
 
+.profile-heading {
+	display: flex;
+	align-items: flex-end;
+	gap: 14px;
+	margin-top: 0;
+	margin-bottom: 1.6rem;
+}
+
+.profile-heading h2 {
+	margin: 0 !important;
+}
+
+.profile-heading-img {
+	display: block;
+	width: 78px;
+	height: auto;
+	transform: translateY(-0.2rem);
+}
+
 
 
 [data-testid='stVerticalBlock'] {
@@ -396,6 +415,22 @@ table th {
 		font-size: 34px !important;
 		font-weight: 800 !important;
 		text-shadow: 0.4px 0 #2437d6;
+	}
+
+	.profile-heading {
+		gap: 8px;
+		margin-top: 0.2rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.profile-heading h2,
+	.profile-heading h2 * {
+		line-height: 1.05 !important;
+	}
+
+	.profile-heading-img {
+		width: 58px;
+		transform: translateY(-0.15rem);
 	}
 
 	h3,
