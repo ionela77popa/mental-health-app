@@ -206,7 +206,9 @@ if st.button("PREDICT", key="predict_button"):
         const main = window.parent.document.querySelector('[data-testid="stMain"]');
         const result = window.parent.document.querySelector('.result-box');
 
-        if (main && result) {
+        if (main && result && window.parent.innerWidth <= 768) {
+            main.scrollBy({ top: 500, behavior: "smooth" });
+        } else if (main && result) {
             const mainRect = main.getBoundingClientRect();
             const resultRect = result.getBoundingClientRect();
             const offset = 16;

@@ -49,6 +49,14 @@ h1 div {
 	text-shadow: 0.6px 0 #2437d6;
 }
 
+h1 {
+	display: block !important;
+	width: 100% !important;
+	max-width: 100% !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
 h2,
 h2 * {
 	font-size: 42px !important;
@@ -355,6 +363,14 @@ table th {
 		text-align: center !important;
 		text-shadow: 0.6px 0 #2437d6;
 		word-break: break-word;
+	}
+
+	h1 {
+		display: block !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		margin-left: auto !important;
+		margin-right: auto !important;
 	}
 
 
