@@ -57,6 +57,10 @@ h1 {
 	margin-right: auto !important;
 }
 
+.app-title-line {
+	display: inline !important;
+}
+
 h2,
 h2 * {
 	font-size: 42px !important;
@@ -375,6 +379,14 @@ table th {
 		margin-top: 0.2rem !important;
 		margin-bottom: 2.4rem !important;
 		text-wrap: balance;
+	}
+
+	.app-title-line {
+		display: block !important;
+	}
+
+	.app-title-line--predictor {
+		transform: translateX(0.45ch);
 	}
 
 

@@ -34,7 +34,16 @@ with open(CSS_FILE, encoding="utf-8") as f:
 # TITLU
 # ==================================
 
-st.title("KNN Depression Predictor")
+st.markdown(
+    """
+    <h1 class="app-title">
+        <span class="app-title-line">KNN</span>
+        <span class="app-title-line">Depression</span>
+        <span class="app-title-line app-title-line--predictor">Predictor</span>
+    </h1>
+    """,
+    unsafe_allow_html=True
+)
 
 # ==================================
 # INCARCARE MODEL
