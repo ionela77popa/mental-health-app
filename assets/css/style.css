@@ -84,7 +84,7 @@ h2 * {
 	display: block;
 	width: 2em;
 	height: auto;
-	transform: translateY(0.25em);
+	transform: translate(-2rem, 0.25em);
 }
 
 
@@ -430,7 +430,7 @@ table th {
 
 	.profile-heading-img {
 		width: 2em;
-		transform: translateY(0.25em);
+		transform: translate(-2rem, 0.25em);
 	}
 
 	h3,
