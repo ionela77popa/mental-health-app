@@ -180,7 +180,7 @@ if st.button("PREDICT", key="predict_button"):
         with open(path, "rb") as f:
             b64 = base64.b64encode(f.read()).decode()
         return (
-            f'<div style="display:flex;justify-content:center;margin-top:1em">'
+            f'<div style="display:flex;justify-content:center;margin-top:0.5rem">'
             f'<img src="data:image/png;base64,{b64}" width="250"/>'
             f'</div>'
         )
