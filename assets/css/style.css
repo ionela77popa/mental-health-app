@@ -64,7 +64,8 @@ h1 {
 h2,
 h2 * {
 	font-size: 42px !important;
-	font-weight: 700 !important;
+	font-weight: 800 !important;
+	text-shadow: 0.4px 0 #2437d6;
 }
 
 
@@ -390,8 +391,11 @@ table th {
 	}
 
 
-	h2 {
+	h2,
+	h2 * {
 		font-size: 34px !important;
+		font-weight: 800 !important;
+		text-shadow: 0.4px 0 #2437d6;
 	}
 
 	h3,
