@@ -77,7 +77,7 @@ accuracy = engine.holdout_accuracy
 # INPUTURI
 # ==================================
 
-st.markdown("## Introdu datele profilului")
+st.markdown("## Introdu datele profilului:")
 
 social_media = st.slider(
     "Număr ore social media / zi",
@@ -204,8 +204,18 @@ if st.button("PREDICT", key="predict_button"):
         """
         <script>
         const main = window.parent.document.querySelector('[data-testid="stMain"]');
-        const scrollTarget = main ?? window.parent;
-        scrollTarget.scrollBy({ top: 500, behavior: "smooth" });
+        const result = window.parent.document.querySelector('.result-box');
+
+        if (main && result) {
+            const mainRect = main.getBoundingClientRect();
+            const resultRect = result.getBoundingClientRect();
+            const offset = 16;
+
+            main.scrollBy({
+                top: resultRect.top - mainRect.top - offset,
+                behavior: "smooth"
+            });
+        }
         </script>
         """,
         height=0,
