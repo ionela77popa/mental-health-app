@@ -70,8 +70,8 @@ h2 * {
 
 .profile-heading {
 	display: flex;
-	align-items: flex-end;
-	gap: 6px;
+	align-items: baseline;
+	gap: 4px;
 	margin-top: 0;
 	margin-bottom: 1.6rem;
 }
@@ -82,9 +82,9 @@ h2 * {
 
 .profile-heading-img {
 	display: block;
-	width: 78px;
+	width: 2em;
 	height: auto;
-	transform: translate(-0.2rem, -0.45rem);
+	transform: translate(-0.1rem, 0.25em);
 }
 
 
@@ -418,7 +418,7 @@ table th {
 	}
 
 	.profile-heading {
-		gap: 4px;
+		gap: 3px;
 		margin-top: 0.2rem;
 		margin-bottom: 1.5rem;
 	}
@@ -429,8 +429,8 @@ table th {
 	}
 
 	.profile-heading-img {
-		width: 58px;
-		transform: translate(-0.25rem, -0.45rem);
+		width: 2em;
+		transform: translate(-0.1rem, 0.25em);
 	}
 
 	h3,
